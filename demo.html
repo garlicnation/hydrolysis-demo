@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://localhost:8001/hydrolysis/demo/demo.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+  <meta charset="utf-8">
+  <script src="./demo_files/webcomponents-lite.js"></script><script src="./demo_files/HTMLImports.js"></script><script src="./demo_files/WeakMap.js"></script><script src="./demo_files/base.js"></script><script src="./demo_files/module.js"></script><script src="./demo_files/path.js"></script><script src="./demo_files/xhr.js"></script><script src="./demo_files/Loader.js"></script><script src="./demo_files/Observer.js"></script><script src="./demo_files/parser.js"></script><script src="./demo_files/importer.js"></script><script src="./demo_files/dynamic.js"></script><script src="./demo_files/boot.js"></script><script src="./demo_files/CustomElements.js"></script><script src="./demo_files/WeakMap.js"></script><script src="./demo_files/base(1).js"></script><script src="./demo_files/traverse.js"></script><script src="./demo_files/observe.js"></script><script src="./demo_files/upgrade.js"></script><script src="./demo_files/register.js"></script><script src="./demo_files/boot(1).js"></script><script src="./demo_files/Template.js"></script><script src="./demo_files/unresolved.js"></script>
+  <script src="./demo_files/hydrolysis.js"></script>
+  <link rel="import" href="http://localhost:8001/polymer/polymer.html">
+  <link rel="import" href="http://localhost:8001/core-asset/core-asset.html">
+  <link rel="import" href="http://localhost:8001/core-doc-viewer/core-doc-element-page.html">
+
+</head>
+<body>
+  <core-asset id="stage" href="../../designer2/elements/designer-stage/designer-stage.html">
+  </core-asset>
+  <script>
+  "use strict";
+  var stage = document.querySelector("#stage");
+  stage.addEventListener('content-loaded', function(){
+    var textarea = document.querySelector("textarea");
+    var hyd = require('hydrolysis');
+    var stage = document.querySelector("#stage").content;
+    function displayMetadata(content, url, loader) {
+      function render(content) {
+        if (content.elements) {
+          content.elements.forEach(function(element){
+            var docs = document.createElement('core-doc-element-page');
+            docs.descriptor = element;
+            document.body.appendChild(docs);
+          });
+        }
+        if (content.modules) {
+          content.modules.forEach(function(module){
+            var docs = document.createElement('core-doc-element-page');
+            docs.descriptor = module;
+            document.body.appendChild(docs);
+          });
+        }
+        if (content.imports) {
+          content.imports.forEach(render);
+        }
+      }
+      if (url) {
+        hyd.hydrolyze(content, false, url, loader).then(render);
+      } else {
+        hyd.hydrolyze(content).then(render);
+      }
+
+    }
+
+    var loader = new hyd.loader();
+    loader.addResolver(new hyd.xhrResolver());
+
+    displayMetadata(stage, document.querySelector('#stage').url.href, loader);
+  });
+  </script>
+
+<core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>designer-stage</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      
+        <div class="property method">
+          <div class="name">configure</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">ready</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">setDocument</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">dispatchCommand</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>designer-selection</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">listeners</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      
+        <div class="property method">
+          <div class="name">created</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">ready</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>ParsedHtmlCommandApplier</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">setAttribute</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">moveElement</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>DomCommandApplier</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">setAttribute</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">moveElement</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>CommandApplier</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">apply</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">undo</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Commands</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">InsertPosition</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">setAttribute</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">setCssProperties</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">moveElement</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Path</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">getNodePath</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">getNodeFromPath</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>dom-utils</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">isDescendant</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">getDocumentElement</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>parse5_utils</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">name</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">value</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span> </span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>x-repeat</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">extends</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">items</div>
+          <div class="type">Array</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">observe</div>
+          <div class="type">String</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">delay</div>
+          <div class="type">Number</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">mixins</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">bind</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      
+        <div class="property method">
+          <div class="name">sort</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">filter</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">created</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">attached</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">render</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">itemForElement</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">keyForElement</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">indexForElement</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Collection</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">initMap</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">add</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">removeKey</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">remove</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">notify</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">observe</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">unobserve</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">getKey</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">getKeys</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">setItem</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">getItem</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">getItems</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">applySplices</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>ArrayObserve</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">push</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">pop</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">splice</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">shift</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">unshift</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">sort</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Templatizer</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">templatize</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">customPrepAnnotations</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">stamp</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>x-template</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">extends</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">mixins</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      
+        <div class="property method">
+          <div class="name">ready</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>x-autobind</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">extends</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      
+        <div class="property method">
+          <div class="name">registerFeatures</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">initFeatures</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>bind-annotations</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">addEffects</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">marshalAnnotatedNodes</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>bind</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">prepareModel</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">addBuilder</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">addBuilders</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">addPropertyEffect</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">createBindings</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">upper</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">prepareInstance</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">setupBindListeners</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Debounce</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">go</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">stop</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">complete</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Async</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">characterData</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Settings</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">wantShadow</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">hasShadow</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">nativeShadow</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">useShadow</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">useNativeShadow</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">useNativeImports</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>StyleTransformer</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">value</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">stop</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>ResolveUrl</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">resolveCss</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">resolveAttrs</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>StyleUtil</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">parser</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">applyCss</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">forEachStyleRule</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">toCssText</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>CssParse</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">start</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">end</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Annotations</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">parseAnnotations</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">dashToCamelCase</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">camelToDashCase</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">findAnnotatedNode</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>ArraySplice</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">index</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">removed</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">addedCount</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Polymer</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">prototype</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>Base</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">telemetry</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">addFeature</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">registerCallback</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">registered</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">createdCallback</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">beforeCreated</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">created</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">afterCreated</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">attachedCallback</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">attached</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">detachedCallback</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">detached</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">attributeChangedCallback</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">attributeChanged</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">extend</div>
+          <div class="type">function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page><core-doc-element-page paper-font="body1">
+
+    <header paper-font="display2">&lt;<span>core-asset</span>&gt;</header>
+
+    <section id="summary" paper-font="body2">
+      <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+    </section>
+
+    <section id="properties">
+      <header paper-font="headline">Properties</header>
+      
+        <div class="property">
+          <div class="name">href</div>
+          <div class="type">String</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property">
+          <div class="name">bind</div>
+          <div class="type"></div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+    <section id="methods">
+      <header paper-font="headline">Methods</header>
+      
+        <div class="property method">
+          <div class="name">created</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">configure</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">load</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      
+        <div class="property method">
+          <div class="name">hrefChanged</div>
+          <div class="type">Function</div>
+          <mark-down class="desc">
+    <div id="markdown"></div>
+  </mark-down>
+        </div>
+      <template is="x-repeat"></template>
+    </section>
+
+  </core-doc-element-page></body></html>
